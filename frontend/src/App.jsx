@@ -1,10 +1,7 @@
-import { useState } from "react";
-import "./App.css";
+import Router from "../src/utils/Router";
 
 function App() {
-  return <div>
-    
-  </div>;
+  return <Router />;
 }
 
 export default App;
