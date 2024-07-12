@@ -1,0 +1,8 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* margin: 120px 1em 1em 1em; */
+  padding: 50px;
+}
