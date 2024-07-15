@@ -1,6 +1,6 @@
 import User from "../models/UserModel.js";
 import { compare, hash } from "../middleware/crypto.js";
-import multer from "multer";
+// import multer from "multer";
 
 // CREAT new user
 export const createUser = async (req, res, next) => {
@@ -51,7 +51,9 @@ export const deleteSingleUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     res.status(200).json(user);
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
 /////////////////////////////////////////////
@@ -101,7 +103,7 @@ export const registerUser = async (req, res, next) => {
     if (!email || !username || !password || !passwordConfirm) {
       return res.status(400).json({ error: "invalid registration" });
     }
-    
+
     if (password !== passwordConfirm) {
       return res.status(400).json({ error: "invalid registration" });
     }

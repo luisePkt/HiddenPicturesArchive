@@ -50,11 +50,6 @@ const userSchema = new Schema(
     passwordConfirm: {
       type: String,
       require: [true, "Please confirm your password"],
-      // validate: {
-      //   // für create & save
-      //   validator: (el) => el === password,
-      //   message: "Passwords are not the same",
-      // },
     },
     email: {
       type: String,
@@ -65,7 +60,11 @@ const userSchema = new Schema(
       type: String,
       default: "default.png",
     },
-    // collections: [collectionSchema],
+    collections: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Collection",
+      // required: true,
+    },
   },
   { versionKey: false }
 );

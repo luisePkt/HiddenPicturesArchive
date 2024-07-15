@@ -1,8 +1,5 @@
 import express from "express";
-// import { storage } from "../middleware/imgStorage.js";
 import { upload } from "../middleware/imgStorage.js";
-// import multer from "multer";
-// import path from "path";
 
 import {
   getAllUsers,

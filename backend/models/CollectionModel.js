@@ -14,6 +14,11 @@ const collectionSchema = new Schema(
     description: {
       type: String,
     },
+    public: {
+      type: String,
+      require: true,
+      default: false,
+    },
   },
   { versionKey: false }
 );
