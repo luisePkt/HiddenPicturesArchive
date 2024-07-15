@@ -1,6 +1,8 @@
 import express from "express";
-import { storage } from "../middleware/imgStorage.js";
+// import { storage } from "../middleware/imgStorage.js";
+import { upload } from "../middleware/imgStorage.js";
 import multer from "multer";
+import path from "path";
 
 import {
   getAllUsers,
@@ -23,5 +25,12 @@ userRouter
 
 userRouter.route("/login").post(loginUser);
 
-const upload = multer({ storage: storage }).single("profileImage");
-userRouter.route("/register", upload).post(registerUser);
+userRouter.route("/register").post(upload, registerUser);
+
+// funktioniert:
+// userRouter.route("/register").post(
+//   multer({
+//     dest: "public/img/users",
+//   }).single("file"),
+//   registerUser
+// );

@@ -91,8 +91,10 @@ export const loginUser = async (req, res, next) => {
 
 export const registerUser = async (req, res, next) => {
   try {
-    const { username, email, password, passwordConfirm, profileImage } =
-      req.body;
+    const { username, email, password, passwordConfirm } = req.body;
+    console.log("test", req.file);
+    const profileImage = req.file.path;
+    console.log("profileImage: ", profileImage);
 
     // const profileImage = `/public/img/users/${req.file.filename}`;
 
@@ -113,6 +115,7 @@ export const registerUser = async (req, res, next) => {
       passwordConfirm: hashedConfrim,
       profileImage,
     });
+    console.log("user: ", user);
     await user.save();
     res.status(201).json(user);
   } catch (error) {
