@@ -3,6 +3,8 @@ import Layout from "../layout/Layout";
 import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import Logout from "../pages/Logout";
+import UserProvider from "./Provider";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -22,13 +24,19 @@ const Router = () => {
           path: "/login",
           element: <Login />,
         },
+        {
+          path: "/logout",
+          element: <Logout />,
+        },
       ],
     },
   ]);
   return (
-    <RouterProvider router={router}>
-      <Layout />
-    </RouterProvider>
+    <UserProvider>
+      <RouterProvider router={router}>
+        <Layout />
+      </RouterProvider>
+    </UserProvider>
   );
 };
 
