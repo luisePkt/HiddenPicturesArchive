@@ -49,11 +49,11 @@ const userSchema = new Schema({
   passwordConfirm: {
     type: String,
     require: [true, "Please confirm your password"],
-    validate: {
-      // für create & save
-      validator: (el) => el === password,
-      message: "Passwords are not the same",
-    },
+    // validate: {
+    //   // für create & save
+    //   validator: (el) => el === password,
+    //   message: "Passwords are not the same",
+    // },
   },
   email: {
     type: String,
