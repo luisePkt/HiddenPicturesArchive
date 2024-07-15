@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../models/UserModel.js";
 import { compare, hash } from "../middleware/crypto.js";
 import multer from "multer";
 
@@ -92,19 +92,20 @@ export const loginUser = async (req, res, next) => {
 export const registerUser = async (req, res, next) => {
   try {
     const { username, email, password, passwordConfirm } = req.body;
-    console.log("test", req.file);
+    // console.log("test file", req.file);
+    console.log("test userdata", req.body);
+
     const profileImage = req.file.path;
     console.log("profileImage: ", profileImage);
-
-    // const profileImage = `/public/img/users/${req.file.filename}`;
 
     if (!email || !username || !password || !passwordConfirm) {
       return res.status(400).json({ error: "invalid registration" });
     }
-
+    
     if (password !== passwordConfirm) {
       return res.status(400).json({ error: "invalid registration" });
     }
+    console.log("test");
 
     const hashed = await hash(password);
     const hashedConfrim = await hash(passwordConfirm);
