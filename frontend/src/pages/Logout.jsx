@@ -1,8 +1,8 @@
 import style from "../styles/Logout.module.css";
 
-function Logout() {
+const Logout=() =>{
   return (
-    <main>
+    <main className={style.main}>
       <h2>Goodbye!</h2>
     </main>
   );

@@ -4,7 +4,7 @@ import { useState } from "react";
 // import axios from "axios";
 import { useUserContext } from "../utils/Provider";
 
-function Login() {
+const Login = () => {
   // states aus Provider
   const { activeUser, setActiveUser } = useUserContext();
   // states:
@@ -34,7 +34,7 @@ function Login() {
     if (!username || !password) {
       return setError({ message: "Missing username or password" });
     }
-   
+
     try {
       const response = await fetch(`http://localhost:${port}/user/login`, {
         method: "POST",
@@ -88,7 +88,7 @@ function Login() {
     <main className={style.main}>
       {activeUser ? (
         // <button onClick={handleLogout}> Logout</button>
-        <p>logged in</p>
+        <p>Welcome</p>
       ) : (
         <div>
           <h2>Login</h2>
@@ -122,6 +122,6 @@ function Login() {
       )}
     </main>
   );
-}
+};
 
 export default Login;

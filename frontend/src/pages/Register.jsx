@@ -7,7 +7,9 @@ const Register = () => {
   // states aus Provider
   const { activeUser, setActiveUser } = useUserContext();
   // states:
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(undefined);
+  const [error, setError] = useState(null);
+
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -24,6 +26,15 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // console.log("img: ", file);
+    // console.log("username: ", document.getElementById("username").value);
+    // console.log("password: ", document.getElementById("password").value);
+    // console.log(
+    //   "passwordConfirm: ",
+    //   document.getElementById("passwordConfirm").value
+    // );
+    // console.log("email: ", document.getElementById("email").value);
 
     const userDataToSend = new FormData();
     userDataToSend.append(
@@ -60,7 +71,7 @@ const Register = () => {
       // console.log("active user: ", activeUser);
       // setActiveUser(data);
       setActiveUser(true);
-      // console.log("active user 2: ", data);
+      console.log("active user 2: ", data);
     } catch (error) {
       console.error("Problem with registration: ", error);
       setError({ message: error.message });
