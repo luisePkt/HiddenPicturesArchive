@@ -1,6 +1,7 @@
 import express from "express";
 import { upload } from "../middleware/imgStorage.js";
-import multer from "multer";
+import { scan } from "../middleware/clamscan.js";
+// import multer from "multer";
 
 import {
   getAllUsers,
@@ -23,13 +24,13 @@ userRouter
 
 userRouter.route("/login").post(loginUser);
 
+userRouter.route("/register").post(upload, scan, registerUser);
 // userRouter.route("/register").post(upload, registerUser);
 
-
 // funktioniert:
-userRouter.route("/register").post(
-  multer({
-    dest: "public/img/users",
-  }).single("file"),
-  registerUser
-);
+// userRouter.route("/register").post(
+//   multer({
+//     dest: "public/img/users",
+//   }).single("file"),
+//   registerUser
+// );

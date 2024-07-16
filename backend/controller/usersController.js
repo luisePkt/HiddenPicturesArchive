@@ -97,7 +97,7 @@ export const registerUser = async (req, res, next) => {
     // console.log("test file", req.file);
     console.log("test userdata", req.body);
 
-    const profileImage = req.file?.path; // req.file?.path => optional chaining => wenn req.file undefined oder null wird profileImage als undefined gewertet und kein Fehler ausgegeben
+    const profileImage = req.file?.path; // req.file?.path => optional chaining => wenn req.file undefined oder null wird profileImage als undefined gewertet und kein Fehler ausgegeben => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
     console.log("test");
     console.log("profileImage: ", profileImage);
 
