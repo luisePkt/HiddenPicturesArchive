@@ -67,8 +67,9 @@ export const deleteSingleUser = async (req, res, next) => {
 // login User
 export const loginUser = async (req, res, next) => {
   try {
+    console.log("test login");
     const { username, password } = req.body;
-    // console.log("username: ", username);
+    console.log("username: ", username);
 
     if (!username || !password) {
       return res.status(400).json({ error: "invalid login" });
