@@ -1,6 +1,10 @@
 import User from "../models/UserModel.js";
 import { compare, hash } from "../middleware/crypto.js";
 // import multer from "multer";
+import jwt from "jsonwebtoken";
+
+// secretKey:
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 // CREAT new user
 export const createUser = async (req, res, next) => {
@@ -39,6 +43,9 @@ export const updateSingleUser = async (req, res, next) => {
       runValidators: true,
       new: true,
     });
+
+    // console.log(user);
+
     user ? res.status(200).json(user) : res.sendStatus(404);
   } catch (error) {
     next(error);
@@ -72,7 +79,6 @@ export const loginUser = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ error: "invalid login" });
     }
-
     const passwordInput = password;
     const passwordDB = user.password;
 
@@ -83,6 +89,12 @@ export const loginUser = async (req, res, next) => {
     if (!loginTrue) {
       return res.status(401).json({ error: "invalid login" });
     }
+
+    // sign webtoken:
+    // const token = jwt.sign({ username }, accessTokenSecret, {
+    //   expiresIn: "15min", //1000 => 1 sek
+    // });
+    // res.json({ token });
     res.json({ status: "success", user });
   } catch (error) {
     next(error);

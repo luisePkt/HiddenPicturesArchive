@@ -1,7 +1,6 @@
 import NodeClam from "clamscan";
 import fs from "fs";
 import path from "path";
-import { nextTick } from "process";
 
 const initClamScan = async () => {
   const clamscan = await new NodeClam().init({
@@ -20,7 +19,7 @@ try {
   clamscanInstance = await initClamScan();
   console.log("clamscan initialisiert");
 } catch (error) {
-  console.log("clamscna nicht initialisiert: ", error);
+  console.log("clamscan nicht initialisiert: ", error);
 }
 
 export const scan = async (req, res, next) => {

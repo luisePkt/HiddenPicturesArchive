@@ -1,6 +1,8 @@
 import express from "express";
 import { upload } from "../middleware/imgStorage.js";
 import { scan } from "../middleware/clamscan.js";
+import tokenAuth from "../middleware/tokenAuth.js";
+// import { resize } from "../middleware/sharp.js";
 // import multer from "multer";
 
 import {
@@ -19,11 +21,14 @@ userRouter.route("/").get(getAllUsers).post(createUser);
 userRouter
   .route("/:id")
   .get(getSingleUser)
-  .patch(updateSingleUser)
+  .patch(upload, scan, updateSingleUser)
+  // .patch(tokenAuth, updateSingleUser)
   .delete(deleteSingleUser);
+// .delete(tokenAuth, deleteSingleUser);
 
 userRouter.route("/login").post(loginUser);
 
+// userRouter.route("/register").post(upload, scan,resize, registerUser);
 userRouter.route("/register").post(upload, scan, registerUser);
 // userRouter.route("/register").post(upload, registerUser);
 
