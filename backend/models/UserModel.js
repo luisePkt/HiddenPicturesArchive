@@ -60,11 +60,13 @@ const userSchema = new Schema(
       type: String,
       default: "default.png",
     },
-    collections: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Collection",
-      // required: true,
-    },
+    collections: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Collection",
+        required: true,
+      },
+    ],
   },
   { versionKey: false }
 );

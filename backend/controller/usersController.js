@@ -97,7 +97,8 @@ export const registerUser = async (req, res, next) => {
     // console.log("test file", req.file);
     console.log("test userdata", req.body);
 
-    const profileImage = req.file.path;
+    const profileImage = req.file?.path; // req.file?.path => optional chaining => wenn req.file undefined oder null wird profileImage als undefined gewertet und kein Fehler ausgegeben
+    console.log("test");
     console.log("profileImage: ", profileImage);
 
     if (!email || !username || !password || !passwordConfirm) {
@@ -107,7 +108,6 @@ export const registerUser = async (req, res, next) => {
     if (password !== passwordConfirm) {
       return res.status(400).json({ error: "invalid registration" });
     }
-    console.log("test");
 
     const hashed = await hash(password);
     const hashedConfrim = await hash(passwordConfirm);
