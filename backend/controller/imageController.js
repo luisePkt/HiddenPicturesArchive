@@ -12,7 +12,7 @@ export const createImage = async (req, res, next) => {
   }
 };
 
-// GET all users
+// GET all images
 export const getAllImages = async (req, res, next) => {
   try {
     const images = await Image.find();
@@ -22,7 +22,7 @@ export const getAllImages = async (req, res, next) => {
   }
 };
 
-// GET user
+// GET single image
 export const getSingleImage = async (req, res, next) => {
   try {
     const image = await Image.findById(req.params.id);
@@ -32,8 +32,9 @@ export const getSingleImage = async (req, res, next) => {
   }
 };
 
-// UPDATE user
+// UPDATE signle image
 export const updateSingleImage = async (req, res, next) => {
+  console.log("test");
   try {
     const image = await Image.findByIdAndUpdate(req.params.id, req.body, {
       runValidators: true,
@@ -45,7 +46,7 @@ export const updateSingleImage = async (req, res, next) => {
   }
 };
 
-// DELETE user
+// DELETE single image
 
 export const deleteSingleImage = async (req, res, next) => {
   try {

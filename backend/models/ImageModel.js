@@ -14,13 +14,22 @@ const imageSchema = new Schema(
       require: true,
       default: "unknown",
     },
-    keyword: {
-      type: String,
-    },
+    keywords: [
+      {
+        type: String,
+      },
+    ],
     image: {
       type: String,
       require: true,
     },
+    collections: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Collection",
+        required: true,
+      },
+    ],
     public: {
       type: String,
       require: true,

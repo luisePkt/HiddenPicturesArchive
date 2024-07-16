@@ -1,4 +1,6 @@
 import express from "express";
+import { upload } from "../middleware/imgStorage.js";
+import { scan } from "../middleware/clamscan.js";
 import {
   getAllImages,
   createImage,
@@ -9,9 +11,9 @@ import {
 
 export const imageRouter = express.Router();
 
-imageRouter.route("/").get(getAllImages).post(createImage);
+imageRouter.route("/").get(getAllImages).post(upload, scan, createImage);
 imageRouter
-  .report("/:id")
+  .route("/:id")
   .get(getSingleImage)
-  .patch(updateSingleImage)
+  .patch(upload, scan, updateSingleImage)
   .delete(deleteSingleImage);

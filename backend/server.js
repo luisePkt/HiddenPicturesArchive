@@ -6,6 +6,7 @@ import cors from "cors";
 import connect from "./middleware/db.js";
 import { errorMiddleware } from "./middleware/errorMiddleware.js";
 import { appRouter } from "./routes/appRouter.js";
+import { get } from "mongoose";
 
 const port = process.env.PORT;
 

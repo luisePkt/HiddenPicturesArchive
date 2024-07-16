@@ -26,7 +26,7 @@ export const getAllUsers = async (req, res, next) => {
   }
 };
 
-// GET user
+// GET single user
 export const getSingleUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
@@ -36,7 +36,7 @@ export const getSingleUser = async (req, res, next) => {
   }
 };
 
-// UPDATE user
+// UPDATE single user
 export const updateSingleUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
@@ -52,7 +52,7 @@ export const updateSingleUser = async (req, res, next) => {
   }
 };
 
-// DELETE user
+// DELETE single user
 
 export const deleteSingleUser = async (req, res, next) => {
   try {
@@ -92,10 +92,23 @@ export const loginUser = async (req, res, next) => {
     }
 
     // sign webtoken:
-    // const token = jwt.sign({ username }, accessTokenSecret, {
-    //   expiresIn: "15min", //1000 => 1 sek
-    // });
-    // res.json({ token });
+    // if (!accessTokenSecret) {
+    //   return next(error);
+    // }
+    // const accessToken = jwt.sign(
+    //   { username, password },
+    //   accessTokenSecret
+    //   {
+    //   expiresIn: "30min",
+    // }
+    // );
+    // if (!accessToken) {
+    //   return next(error);
+    // }
+    // res.status(200).json({ user: user });
+    //ende sign webtoken
+
+    // alt, funktioniert:
     res.json({ status: "success", user });
   } catch (error) {
     next(error);
@@ -138,3 +151,25 @@ export const registerUser = async (req, res, next) => {
     next(error);
   }
 };
+
+// display profilepicture:
+export const displayProfilePic = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).send("Usernot found");
+    }
+    res.send(user.profileImage);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// logout User:
+// export const logoutUser = (req, res, next) => {
+//   try {
+//     res.clearCookie("accessToken");
+//   } catch (error) {
+//     next(error);
+//   }
+// };
