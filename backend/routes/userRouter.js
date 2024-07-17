@@ -22,8 +22,8 @@ export const userRouter = express.Router();
 userRouter.route("/").get(getAllUsers).post(createUser);
 userRouter
   .route("/:id")
-  .get(tokenAuth, getSingleUser)
-  // .get( getSingleUser)
+  // .get(tokenAuth, getSingleUser)
+  .get(getSingleUser)
   // .patch(upload, scan, updateSingleUser)
   .patch(tokenAuth, updateSingleUser)
   // .delete(deleteSingleUser);
