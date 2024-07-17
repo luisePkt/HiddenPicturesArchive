@@ -7,6 +7,7 @@ import connect from "./middleware/db.js";
 import { errorMiddleware } from "./middleware/errorMiddleware.js";
 import { appRouter } from "./routes/appRouter.js";
 import { get } from "mongoose";
+import cookieParser from "cookie-parser";
 
 const port = process.env.PORT;
 
@@ -21,6 +22,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 
 // app.use(express.urlencoded({ extended: true }));
 

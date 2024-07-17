@@ -70,6 +70,7 @@ export const loginUser = async (req, res, next) => {
     console.log("test login");
     const { username, password } = req.body;
     console.log("username: ", username);
+    console.log(req.body);
 
     if (!username || !password) {
       return res.status(400).json({ error: "invalid login" });
@@ -82,8 +83,11 @@ export const loginUser = async (req, res, next) => {
     }
     const passwordInput = password;
     const passwordDB = user.password;
+    // console.log("pwInp: ", passwordInput);
+    // console.log("pwDB: ", passwordDB);
 
     const loginTrue = await compare(passwordInput, passwordDB);
+    // const loginTrue = passwordInput === passwordDB;
 
     console.log("login true: ", loginTrue);
 
@@ -92,24 +96,27 @@ export const loginUser = async (req, res, next) => {
     }
 
     // sign webtoken:
-    // if (!accessTokenSecret) {
-    //   return next(error);
-    // }
-    // const accessToken = jwt.sign(
-    //   { username, password },
-    //   accessTokenSecret
-    //   {
-    //   expiresIn: "30min",
-    // }
-    // );
-    // if (!accessToken) {
-    //   return next(error);
-    // }
-    // res.status(200).json({ user: user });
-    //ende sign webtoken
+    if (!accessTokenSecret) {
+      return next(error);
+    }
+    const accessToken = jwt.sign({ username, password }, accessTokenSecret);
+    if (!accessToken) {
+      return next(error);
+    }
+
+    // cookie mit Name "accessToken" wird gesetzt & httpOnly: true verhindert, dass JS auf Client Cookie lesen kann
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      // secure: true,
+      // sameSite: "strict",
+    });
+
+    res.status(200).json({ user: user });
+    // console.log("accessToken: ", accessToken);
+    // ende sign webtoken
 
     // alt, funktioniert:
-    res.json({ status: "success", user });
+    // res.json({ status: "success", user });
   } catch (error) {
     next(error);
   }
@@ -166,10 +173,13 @@ export const displayProfilePic = async (req, res, next) => {
 };
 
 // logout User:
-// export const logoutUser = (req, res, next) => {
-//   try {
-//     res.clearCookie("accessToken");
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+export const logoutUser = (req, res, next) => {
+  try {
+    res.clearCookie("accessToken");
+    res.status(200).json({ user: false });
+
+    console.log("clearcookie");
+  } catch (error) {
+    next(error);
+  }
+};
