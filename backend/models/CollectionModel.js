@@ -10,7 +10,10 @@ const collectionSchema = new Schema(
       require: true,
     },
     images: [{ type: Schema.Types.ObjectId, ref: "Image" }],
-    name: { type: String, require: true },
+    name: {
+      type: String,
+      require: true,
+    },
     description: {
       type: String,
     },

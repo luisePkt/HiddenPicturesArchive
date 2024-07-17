@@ -1,5 +1,5 @@
 import mongoose, { model } from "mongoose";
-// import validator from "validator";
+import validator from "validator";
 
 const { Schema } = mongoose;
 
@@ -42,44 +42,48 @@ const userSchema = new Schema(
       type: String,
       require: true,
       unique: true,
-      // validate: {
-      //   validator: function (v) {
-      //     return validator.matches(v, /^[a-zA-Z0-9_]+$/);
-      //   },
-      //   message: (props) => "This is not a valid Username",
-      // },
+      validate: {
+        validator: function (v) {
+          const trimmed = v.trim();
+          return validator.matches(trimmed, /^[a-zA-Z0-9_]+$/);
+        },
+        message: (props) => "This is not a valid Username",
+      },
     },
     password: {
       type: String,
       minlength: 8,
       require: [true, "Please provide a password"],
-      // validate: {
-      //   validator: function (v) {
-      //     return v.minlength > 12;
-      //   },
-      //   message: (props) => "Not a valid password!",
-      // },
+      validate: {
+        validator: function (v) {
+          const trimmed = v.trim();
+          return trimmed.length > 12;
+        },
+        message: (props) => "Not a valid password!",
+      },
     },
     passwordConfirm: {
       type: String,
       require: [true, "Please confirm your password"],
-      // validate: {
-      //   validator: function (v) {
-      //     return v.minlength > 12;
-      //   },
-      //   message: (props) => "Not a valid password!",
-      // },
+      validate: {
+        validator: function (v) {
+          const trimmed = v.trim();
+          return trimmed.length > 12;
+        },
+        message: (props) => "Not a valid password!",
+      },
     },
     email: {
       type: String,
       require: true,
       unique: true,
-      // validate: {
-      //   validator: function (v) {
-      //     return validator.isEmail(v);
-      //   },
-      //   message: (props) => `${props.value} is not a valid email`,
-      // },
+      validate: {
+        validator: function (v) {
+          const trimmed = v.trim();
+          return validator.isEmail(trimmed);
+        },
+        message: (props) => `${props.value} is not a valid email`,
+      },
     },
     profileImage: {
       type: String,

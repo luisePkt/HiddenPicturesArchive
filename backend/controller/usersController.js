@@ -99,7 +99,8 @@ export const loginUser = async (req, res, next) => {
     if (!accessTokenSecret) {
       return next(error);
     }
-    const accessToken = jwt.sign({ username, password }, accessTokenSecret);
+    // const accessToken = jwt.sign({ username, password }, accessTokenSecret);
+    const accessToken = jwt.sign({ username }, accessTokenSecret);
     if (!accessToken) {
       return next(error);
     }

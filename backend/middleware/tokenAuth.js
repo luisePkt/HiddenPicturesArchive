@@ -4,7 +4,7 @@ import User from "../models/UserModel.js";
 // secret token:
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
-export const tokenAuth = (req, res, next) => {
+export const tokenAuth = async (req, res, next) => {
   try {
     console.log("test");
     // get token
@@ -12,10 +12,20 @@ export const tokenAuth = (req, res, next) => {
 
     console.log({ token });
 
-    if (token == null) {
+    if (!token) {
       return res.sendStatus(401);
     }
-    jwt.verify(token, accessTokenSecret);
+    jwt.verify(token, accessTokenSecret, async (error, decoded) => {
+      if (error) {
+        return res.sendStatus(403);
+      }
+      const user = await User.findOne({ username: decoded.username });
+      if (!user) {
+        return res.sendStatus(404);
+      }
+      req.user = user;
+      next();
+    });
   } catch (error) {
     next(error);
   }
