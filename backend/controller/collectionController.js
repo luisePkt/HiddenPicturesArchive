@@ -49,7 +49,6 @@ export const updateSingleCollection = async (req, res, next) => {
 };
 
 // DELETE collection
-
 export const deleteSingleCollection = async (req, res, next) => {
   try {
     const collection = await Collection.findByIdAndDelete(req.params.id);

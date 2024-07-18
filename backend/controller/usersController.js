@@ -1,10 +1,11 @@
 import User from "../models/UserModel.js";
 import { compare, hash } from "../middleware/crypto.js";
-// import multer from "multer";
 import jwt from "jsonwebtoken";
 
 // secretKey:
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
+
+// Basic Operations:
 
 // CREAT new user
 export const createUser = async (req, res, next) => {
@@ -45,7 +46,6 @@ export const updateSingleUser = async (req, res, next) => {
     });
 
     // console.log(user);
-
     user ? res.status(200).json(user) : res.sendStatus(404);
   } catch (error) {
     next(error);
@@ -53,7 +53,6 @@ export const updateSingleUser = async (req, res, next) => {
 };
 
 // DELETE single user
-
 export const deleteSingleUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
@@ -63,14 +62,13 @@ export const deleteSingleUser = async (req, res, next) => {
   }
 };
 
-/////////////////////////////////////////////
+// Bonus Operations ///////////////////////////////////////////
+
 // login User
 export const loginUser = async (req, res, next) => {
   try {
-    console.log("test login");
     const { username, password } = req.body;
-    console.log("username: ", username);
-    console.log(req.body);
+    // console.log("username: ", username);
 
     if (!username || !password) {
       return res.status(400).json({ error: "invalid login" });
@@ -83,11 +81,9 @@ export const loginUser = async (req, res, next) => {
     }
     const passwordInput = password;
     const passwordDB = user.password;
-    // console.log("pwInp: ", passwordInput);
-    // console.log("pwDB: ", passwordDB);
 
     const loginTrue = await compare(passwordInput, passwordDB);
-    // const loginTrue = passwordInput === passwordDB;
+    // const loginTrue = passwordInput === passwordDB; // ohne compare
 
     console.log("login true: ", loginTrue);
 
@@ -99,24 +95,21 @@ export const loginUser = async (req, res, next) => {
     if (!accessTokenSecret) {
       return next(error);
     }
-    // const accessToken = jwt.sign({ username, password }, accessTokenSecret);
-    const accessToken = jwt.sign({ username }, accessTokenSecret);
+    const accessToken = jwt.sign({ username }, accessTokenSecret); // vllt. besser userID statt username?
     if (!accessToken) {
       return next(error);
     }
 
-    // cookie mit Name "accessToken" wird gesetzt & httpOnly: true verhindert, dass JS auf Client Cookie lesen kann
+    // cookie mit name "accessToken" wird gesetzt & httpOnly: true verhindert, dass JS auf Client Cookie lesen kann
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      // secure: true,
-      // sameSite: "strict",
+      // secure: true, // cookie wird nur über HTTPS gesendet
+      // sameSite: "strict", // cookie wird nicht bei cross-site requests gesendet
     });
 
     res.status(200).json({ user: user });
-    // console.log("accessToken: ", accessToken);
-    // ende sign webtoken
 
-    // alt, funktioniert:
+    // alt - ohne cookie:
     // res.json({ status: "success", user });
   } catch (error) {
     next(error);
@@ -124,18 +117,16 @@ export const loginUser = async (req, res, next) => {
 };
 
 // register User
-
 export const registerUser = async (req, res, next) => {
   try {
-    console.log("test")
+    // getting user-infos from input:
     const { username, email, password, passwordConfirm } = req.body;
-    // console.log("test file", req.file);
-    console.log("test userdata", req.body);
+    // console.log("test userdata", req.body);
 
     const profileImage = req.file?.path; // req.file?.path => optional chaining => wenn req.file undefined oder null wird profileImage als undefined gewertet und kein Fehler ausgegeben => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
-    console.log("test");
-    console.log("profileImage: ", profileImage);
+    // console.log("profileImage: ", profileImage);
 
+    // check infos:
     if (!email || !username || !password || !passwordConfirm) {
       return res.status(400).json({ error: "invalid registration" });
     }
@@ -144,8 +135,10 @@ export const registerUser = async (req, res, next) => {
       return res.status(400).json({ error: "invalid registration" });
     }
 
+    // hash password/passwordConfirm:
     const hashed = await hash(password);
     const hashedConfrim = await hash(passwordConfirm);
+    // create new user:
     const user = new User({
       username,
       email,
@@ -177,6 +170,7 @@ export const displayProfilePic = async (req, res, next) => {
 // logout User:
 export const logoutUser = (req, res, next) => {
   try {
+    // clear cookies:
     res.clearCookie("accessToken");
     res.status(200).json({ user: false });
 

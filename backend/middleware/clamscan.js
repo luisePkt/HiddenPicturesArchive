@@ -3,6 +3,8 @@ import fs from "fs";
 import path from "path";
 
 const initClamScan = async () => {
+
+  // initialise clamscan:
   const clamscan = await new NodeClam().init({
     clamdscan: {
       socket: "/tmp/clamd.socket",
@@ -24,8 +26,10 @@ try {
 
 export const scan = async (req, res, next) => {
   try {
+
     const filePath = path.resolve(req.file.path);
     console.log("scanning file");
+    
     const scanResult = await clamscanInstance.scanFile(filePath);
     if (scanResult.isInfected) {
       fs.unlinkSync(filePath);

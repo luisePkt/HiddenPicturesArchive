@@ -9,8 +9,7 @@ export const tokenAuth = async (req, res, next) => {
     console.log("test");
     // get token from cookie
     const token = req.cookies.accessToken;
-
-    console.log({ token });
+    // console.log({ token });
 
     if (!token) {
       return res.sendStatus(401);

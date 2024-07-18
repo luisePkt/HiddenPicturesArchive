@@ -1,7 +1,6 @@
 import express from "express";
 import Image from "../models/ImageModel.js";
 
-// NOTICE: req.file.path? oder req.body?
 // CREAT new image
 export const createImage = async (req, res, next) => {
   try {
@@ -32,7 +31,7 @@ export const getSingleImage = async (req, res, next) => {
   }
 };
 
-// UPDATE signle image
+// UPDATE single image
 export const updateSingleImage = async (req, res, next) => {
   console.log("test");
   try {
@@ -47,7 +46,6 @@ export const updateSingleImage = async (req, res, next) => {
 };
 
 // DELETE single image
-
 export const deleteSingleImage = async (req, res, next) => {
   try {
     const image = await Image.findByIdAndDelete(req.params.id);

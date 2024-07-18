@@ -3,7 +3,6 @@ import { upload } from "../middleware/imgStorage.js";
 import { scan } from "../middleware/clamscan.js";
 import tokenAuth from "../middleware/tokenAuth.js";
 // import { resize } from "../middleware/sharp.js";
-// import multer from "multer";
 
 import {
   getAllUsers,
@@ -23,12 +22,7 @@ userRouter.route("/").get(getAllUsers).post(createUser);
 userRouter
   .route("/:id")
   .get(tokenAuth, getSingleUser)
-  // .get(getSingleUser)
-  // .patch(upload, scan, updateSingleUser)
   .patch(tokenAuth, updateSingleUser)
-  // .patch(updateSingleUser)
-
-  // .delete(deleteSingleUser);
   .delete(tokenAuth, deleteSingleUser);
 
 userRouter.route("/:id/profilepic").get(displayProfilePic);
@@ -37,7 +31,7 @@ userRouter.route("/login").post(loginUser);
 
 //upload profile pic with multer & scan with clamscan and regsiter user:
 userRouter.route("/register").post(upload, scan, registerUser);
-// upload profile pic with multer and regsiter user:
+// upload profile pic with multer and register user:
 // userRouter.route("/register").post(upload, registerUser);
 // funktioniert noch nicht:
 // userRouter.route("/register").post(upload, scan,resize, registerUser);

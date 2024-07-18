@@ -3,38 +3,6 @@ import validator from "validator";
 
 const { Schema } = mongoose;
 
-// Schema collectionObjects:
-// const collectionObjects = new Schema({
-//   title: {
-//     type: String,
-//     require: true,
-//     default: "image",
-//   },
-//   source: {
-//     type: String,
-//     require: true,
-//     default: "unknown",
-//   },
-//   keyword: {
-//     type: String,
-//   },
-//   image: {
-//     type: String,
-//     require: true,
-//   },
-//   public: {
-//     type: String,
-//     require: true,
-//     default: false,
-//   },
-// });
-
-// // Schema collection:
-// const collectionSchema = new Schema({
-//   archiveName: String,
-//   objects: [collectionObjects],
-// });
-
 // Schema User:
 const userSchema = new Schema(
   {
