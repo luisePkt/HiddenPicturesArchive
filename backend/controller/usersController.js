@@ -127,6 +127,7 @@ export const loginUser = async (req, res, next) => {
 
 export const registerUser = async (req, res, next) => {
   try {
+    console.log("test")
     const { username, email, password, passwordConfirm } = req.body;
     // console.log("test file", req.file);
     console.log("test userdata", req.body);

@@ -7,7 +7,7 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 export const tokenAuth = async (req, res, next) => {
   try {
     console.log("test");
-    // get token
+    // get token from cookie
     const token = req.cookies.accessToken;
 
     console.log({ token });
@@ -15,14 +15,18 @@ export const tokenAuth = async (req, res, next) => {
     if (!token) {
       return res.sendStatus(401);
     }
+    // validate token
     jwt.verify(token, accessTokenSecret, async (error, decoded) => {
+      // decoded -> object with userinfo
       if (error) {
         return res.sendStatus(403);
       }
+      // find user in db with username
       const user = await User.findOne({ username: decoded.username });
       if (!user) {
         return res.sendStatus(404);
       }
+      // zuweisung wichtig, um z.B. später zu prüfen, ob user für best. Bereiche berechtigt ist
       req.user = user;
       next();
     });

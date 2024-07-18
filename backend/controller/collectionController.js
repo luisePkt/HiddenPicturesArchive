@@ -42,7 +42,6 @@ export const updateSingleCollection = async (req, res, next) => {
       }
     );
     console.log(collection);
-    console.log("test collection");
     collection ? res.status(200).json(collection) : res.sendStatus(404);
   } catch (error) {
     next(error);
