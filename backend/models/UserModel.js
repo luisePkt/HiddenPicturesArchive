@@ -15,7 +15,7 @@ const userSchema = new Schema(
           const trimmed = v.trim();
           return validator.matches(trimmed, /^[a-zA-Z0-9_]+$/);
         },
-        message: (props) => "This is not a valid Username",
+        message: (props) => `${props.value} is not a valid username!`,
       },
     },
     password: {
@@ -27,7 +27,7 @@ const userSchema = new Schema(
           const trimmed = v.trim();
           return trimmed.length > 12;
         },
-        message: (props) => "Not a valid password!",
+        message: (props) => `${props.value} is not a valid password!`,
       },
     },
     passwordConfirm: {
@@ -38,7 +38,7 @@ const userSchema = new Schema(
           const trimmed = v.trim();
           return trimmed.length > 12;
         },
-        message: (props) => "Not a valid password!",
+        message: (props) => `${props.value} is not a valid password!`,
       },
     },
     email: {

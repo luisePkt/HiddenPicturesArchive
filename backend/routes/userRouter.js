@@ -21,7 +21,9 @@ export const userRouter = express.Router();
 userRouter.route("/").get(getAllUsers).post(createUser);
 userRouter
   .route("/:id")
-  .get(tokenAuth, getSingleUser)
+  .get(getSingleUser)
+  // .get(tokenAuth, getSingleUser)
+
   .patch(tokenAuth, updateSingleUser)
   .delete(tokenAuth, deleteSingleUser);
 
@@ -38,7 +40,7 @@ userRouter.route("/register").post(upload, scan, registerUser);
 
 // funktioniert:
 // userRouter.route("/register").post(
-  //   multer({
+//   multer({
 //     dest: "public/img/users",
 //   }).single("file"),
 //   registerUser

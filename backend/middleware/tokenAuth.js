@@ -6,7 +6,7 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 export const tokenAuth = async (req, res, next) => {
   try {
-    console.log("test");
+    // console.log("test");
     // get token from cookie
     const token = req.cookies.accessToken;
     // console.log({ token });

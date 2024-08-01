@@ -3,7 +3,6 @@ import fs from "fs";
 import path from "path";
 
 const initClamScan = async () => {
-
   // initialise clamscan:
   const clamscan = await new NodeClam().init({
     clamdscan: {
@@ -25,26 +24,32 @@ try {
 }
 
 export const scan = async (req, res, next) => {
-  try {
+  // überprüfen, ob req.file vorhanden ist:
+  if (!req.file) {
+    // return res.status(400).json({ message: "No file provided" });
+    // überspring scan, wenn kein bild vorhanden und geh zur nächsten middleware
+    next();
+  } else {
+    try {
+      const filePath = path.resolve(req.file.path);
+      console.log("scanning file");
 
-    const filePath = path.resolve(req.file.path);
-    console.log("scanning file");
-    
-    const scanResult = await clamscanInstance.scanFile(filePath);
-    if (scanResult.isInfected) {
-      fs.unlinkSync(filePath);
-      return res
-        .status(400)
-        .json({ message: "file infected", viruses: scanResult.viruses });
-    } else {
-      console.log("file clean");
-      //   res.json({
-      //     message: "datei ist clean hochgeladen unter " + req.file.path,
-      //   });
-      next();
+      const scanResult = await clamscanInstance.scanFile(filePath);
+      if (scanResult.isInfected) {
+        fs.unlinkSync(filePath);
+        return res
+          .status(400)
+          .json({ message: "file infected", viruses: scanResult.viruses });
+      } else {
+        console.log("file clean");
+        //   res.json({
+        //     message: "datei ist clean hochgeladen unter " + req.file.path,
+        //   });
+        next();
+      }
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "an error occured" });
     }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "an error occured" });
   }
 };
