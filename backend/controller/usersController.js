@@ -97,7 +97,9 @@ export const loginUser = async (req, res, next) => {
       return next(error);
     }
     const userId = user._id;
-    const accessToken = jwt.sign({ userId }, accessTokenSecret); // vllt. besser userID statt username?
+    const accessToken = jwt.sign({ userId }, accessTokenSecret, {
+      expiresIn: "1h",
+    });
     if (!accessToken) {
       return next(error);
     }
@@ -120,7 +122,6 @@ export const loginUser = async (req, res, next) => {
 
 // register User
 export const registerUser = async (req, res, next) => {
-  // NOTICE: bei registrierung ohne bild gibt es einen fehler
   try {
     // getting user-infos from input:
     const { username, email, password, passwordConfirm } = req.body;
@@ -151,27 +152,30 @@ export const registerUser = async (req, res, next) => {
     });
     console.log("user: ", user);
     await user.save();
+
     // hier vielleicht auch cookie setzten? => user ist ja eingeloggt
-
     // sign webtoken:
-    // if (!accessTokenSecret) {
-    //   return next(error);
-    // }
-    // const userId = user._id;
-    // const accessToken = jwt.sign({ userId }, accessTokenSecret); 
-    // if (!accessToken) {
-    //   return next(error);
-    // }
+    // console.log(process.env.ACCESS_TOKEN_SECRET);
+    if (!accessTokenSecret) {
+      return next(error);
+    }
+    const userId = user._id;
+    const accessToken = jwt.sign({ userId }, accessTokenSecret, {
+      expiresIn: "1h",
+    });
+    if (!accessToken) {
+      return next(error);
+    }
 
-    // // cookie mit name "accessToken" wird gesetzt & httpOnly: true verhindert, dass JS auf Client Cookie lesen kann
-    // res.cookie("accessToken", accessToken, {
-    //   httpOnly: true,
-    //   // secure: true, // cookie wird nur über HTTPS gesendet
-    //   // sameSite: "strict", // cookie wird nicht bei cross-site requests gesendet
-    // });
+    // // // cookie mit name "accessToken" wird gesetzt & httpOnly: true verhindert, dass JS auf Client Cookie lesen kann
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      // secure: true, // cookie wird nur über HTTPS gesendet
+      // sameSite: "strict", // cookie wird nicht bei cross-site requests gesendet
+    });
 
-    // res.status(200).json({user:user});
-    res.status(201).json(user);
+    res.status(200).json({ user: user });
+    // res.status(201).json(user);
   } catch (error) {
     next(error);
   }
