@@ -1,6 +1,7 @@
 import User from "../models/UserModel.js";
 import { compare, hash } from "../middleware/crypto.js";
 import jwt from "jsonwebtoken";
+import uploadToCloudinary from "../utils/cloudinary.js";
 
 // secretKey:
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
@@ -127,8 +128,16 @@ export const registerUser = async (req, res, next) => {
     const { username, email, password, passwordConfirm } = req.body;
     // console.log("test userdata", req.body);
 
+    console.log("test");
     const profileImage = req.file?.path; // req.file?.path => optional chaining => wenn req.file undefined oder null wird profileImage als undefined gewertet und kein Fehler ausgegeben => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
     // console.log("profileImage: ", profileImage);
+
+    // uploading to cloudinary:
+    let imageData = {};
+    if (profileImage) {
+      const results = await uploadToCloudinary(profileImage, "profilePics");
+      imageData = results;
+    }
 
     // check infos:
     if (!email || !username || !password || !passwordConfirm) {
@@ -148,12 +157,12 @@ export const registerUser = async (req, res, next) => {
       email,
       password: hashed,
       passwordConfirm: hashedConfrim,
-      profileImage,
+      // profileImage,
+      profileImage: imageData,
     });
     console.log("user: ", user);
     await user.save();
 
-    // hier vielleicht auch cookie setzten? => user ist ja eingeloggt
     // sign webtoken:
     // console.log(process.env.ACCESS_TOKEN_SECRET);
     if (!accessTokenSecret) {
@@ -206,3 +215,13 @@ export const logoutUser = (req, res, next) => {
     next(error);
   }
 };
+
+// // GET userID:
+// export const userId = (req, res, next) => {
+//   try {
+//     // const userID = req.user._id;
+//     res.json({ userID: req.user._id });
+//   } catch (error) {
+//     next(error);
+//   }
+// };

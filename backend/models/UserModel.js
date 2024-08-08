@@ -54,8 +54,17 @@ const userSchema = new Schema(
       },
     },
     profileImage: {
-      type: String,
-      default: "default.png",
+      publicId: {
+        type: String,
+        required: true,
+      },
+
+      url: {
+        type: String,
+        required: true,
+      },
+      // type: String,
+      // default: "default.png",
     },
     collections: [
       {
