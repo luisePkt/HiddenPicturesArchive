@@ -3,21 +3,28 @@ import style from "../styles/login.module.css";
 import { useState } from "react";
 // import axios from "axios";
 import { useUserContext } from "../utils/Provider";
+import EyeOpen from "../assets/icons/eye-solid.svg";
+import EyeClosed from "../assets/icons/eye-slash-solid.svg";
 
 const Login = () => {
   // states aus Provider
-  const { activeUser, setActiveUser } = useUserContext();
+  const { activeUser, setActiveUser, port } = useUserContext();
   // states:
   const [loginData, setLoginData] = useState({ username: "", password: "" });
-  // const [activeUser, setActiveUser] = useState(null);
-  // const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
 
-  const port = 3333;
+  // const port = 3333;
+
+  // handle showPassword:
+  const handleShowPassword = () => {
+    setShowPassword(showPassword ? false : true);
+  };
 
   // Aktualisierung loginData:
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // setError(undefined);
+    setError(undefined);
     setLoginData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -45,20 +52,6 @@ const Login = () => {
         credentials: "include",
       });
 
-      // const response = await axios.post(
-      //   `http://localhost:${port}/user/login`,
-      //   {
-      //     username,
-      //     password,
-      //   },
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     withCredentials: true,
-      //   }
-      // );
-
       if (!response.ok) {
         throw new Error("Network response not okay");
       }
@@ -72,26 +65,14 @@ const Login = () => {
     }
   };
 
-  // const handleLogout = async () => {
-  //   const response = await fetch("http://localhost:3333/logout", {
-  //     method: "POST",
-  //     credentials: "include",
-  //   });
-  //   if (response.ok) {
-  //     setActiveUser(null);
-  //   } else {
-  //     setError("logout failed");
-  //   }
-  // };
-
   return (
     <main className={style.main}>
       {activeUser ? (
-        // <button onClick={handleLogout}> Logout</button>
         <p>Welcome</p>
       ) : (
         <div>
           <h2>Login</h2>
+          <br />
           <form
             style={{ display: "flex", flexDirection: "column" }}
             onSubmit={handleLogin}
@@ -104,15 +85,24 @@ const Login = () => {
               placeholder="insert username..."
               onChange={handleChange}
             />
-
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="insert password..."
-              onChange={handleChange}
-            />
+            <div className={style.wrapper}>
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="insert password..."
+                onChange={handleChange}
+                className={style.pwInput}
+              />{" "}
+              <img
+                src={showPassword ? EyeOpen : EyeClosed}
+                alt="eye closed"
+                onClick={handleShowPassword}
+                className={style.pwIcon}
+              />
+            </div>
+            <br />
             <button type="submit">Login</button>
           </form>
           <br />

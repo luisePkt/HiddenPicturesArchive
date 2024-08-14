@@ -8,8 +8,9 @@ header {
 }
 
 nav {
-  background-color: var(--cambridgeBlue);
+  /* background-color: var(--cambridgeBlue); */
   padding: 8px 20px;
+  margin-top: 20px;
   /* width: 100%; */
   display: flex;
   justify-content: space-between;
@@ -21,6 +22,9 @@ nav {
   height: 20px;
   padding: 10px 20px;
   border-radius: 10px;
+  border: black 1px solid;
+
+  box-shadow: whitesmoke 3px 3px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,9 +57,12 @@ nav {
   /* font-size: 18px; */
   border: 1px solid transparent;
   background-color: var(--dutchWhite);
+  border: black 1px solid;
+
   /* height: 20px; */
   padding: 2px 20px;
   border-radius: 10px;
+  box-shadow: whitesmoke 3px 3px;
 }
 
 .navLink:hover {
@@ -70,6 +77,9 @@ nav {
 @media (max-width: 768px) {
   .bars {
     background-color: var(--dutchWhite);
+    border: black 1px solid;
+    box-shadow: whitesmoke 3px 3px;
+
     height: 20px;
     padding: 10px 20px;
     border-radius: 10px;
@@ -81,11 +91,17 @@ nav {
   .bars:hover {
     color: darken(var(--dutchWhite));
   }
+  .barsIcon {
+    height: 18px;
+    /* width: 10px; */
+  }
+
   .navElements {
     position: absolute;
     right: 0;
     top: 65px;
     border: 2px solid black;
+    background-color: var(--dutchWhite);
     border-radius: 20px;
     width: 0;
     transition: all 0.3s ease-in;

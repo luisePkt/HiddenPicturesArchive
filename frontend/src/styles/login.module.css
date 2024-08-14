@@ -1,10 +1,24 @@
+
 .main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* margin: 120px 1em 1em 1em; */
-    padding: 50px;
-    width: 100vw;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* margin: 120px 1em 1em 1em; */
+  padding: 50px;
+  width: 100vw;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.pwInput {
+  box-sizing: border-box;
+}
+
+.pwIcon {
+  width: 15px;
+  transform: translateY(30%) translateX(-150%);
+  position: absolute;
+}

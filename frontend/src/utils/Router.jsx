@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Logout from "../pages/Logout";
+import Userdata from "../pages/Userdata";
 import UserProvider from "./Provider";
 
 const Router = () => {
@@ -27,6 +28,10 @@ const Router = () => {
         {
           path: "/logout",
           element: <Logout />,
+        },
+        {
+          path: "/user",
+          element: <Userdata />,
         },
       ],
     },

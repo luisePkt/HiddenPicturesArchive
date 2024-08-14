@@ -8,6 +8,7 @@
   /* colors */
   --cambridgeBlue: #8fab87;
   --dutchWhite: #efdeb4;
+  /* --dutchWhite: #ece8de; */
 
   font-family: monospace;
 }
@@ -24,11 +25,19 @@ a:hover {
 body {
   margin: 0;
   display: flex;
+  padding-top: 120px;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
 
-  background-color: var(--dutchWhite);
+  /* background-color: var(--dutchWhite); */
+  /* background-image: url("./assets/background/1_frei.jpg"); */
+  background-image: url("./assets/background/1_cropped.jpg");
+  height: 100vh;
+  margin-top: -70px;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center -220px;
 }
 
 h1 {
@@ -36,20 +45,19 @@ h1 {
   line-height: 1.1;
 }
 
-/* button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+button {
+  background-color: lightgray;
+  border-radius: 10px;
+  border: black 1px solid;
+  box-shadow: black 3px 3px;
+  padding: 5px;
   cursor: pointer;
-  transition: border-color 0.25s;
-} */
+}
 
 button:hover {
-  border-color: black;
+  background-color: var(--cambridgeBlue);
+  border: lightgray 1px solid;
+  box-shadow: black 3px 3px;
 }
 button:focus,
 button:focus-visible {
