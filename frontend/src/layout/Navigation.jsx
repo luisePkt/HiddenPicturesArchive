@@ -59,7 +59,7 @@ const Navigation = () => {
     };
   }, []); // NOTICE: wie könnte ich das mit useRef machen?
 
-// Logout:
+  // Logout:
   const handleLogout = async () => {
     try {
       const response = await fetch(`http://localhost:${port}/user/logout`, {
@@ -76,7 +76,7 @@ const Navigation = () => {
       {/* title */}
       <Link to="/">
         <div className={style.logo}>
-          <p>Hidden pictures</p>
+          <p>hidden pictures archive</p>
         </div>
       </Link>
 

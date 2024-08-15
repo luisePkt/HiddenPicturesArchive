@@ -8,7 +8,7 @@ import EyeClosed from "../assets/icons/eye-slash-solid.svg";
 
 const Login = () => {
   // states aus Provider
-  const { activeUser, setActiveUser, port } = useUserContext();
+  const { activeUser, setActiveUser, port, userData } = useUserContext();
   // states:
   const [loginData, setLoginData] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -68,7 +68,7 @@ const Login = () => {
   return (
     <main className={style.main}>
       {activeUser ? (
-        <h1>Welcome</h1>
+        <h1>Hello {userData.username}</h1>
       ) : (
         <div>
           <h2>Login</h2>

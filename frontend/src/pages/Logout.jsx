@@ -1,11 +1,11 @@
 import style from "../styles/Logout.module.css";
 
-const Logout=() =>{
+const Logout = () => {
   return (
     <main className={style.main}>
-      <h2>Goodbye!</h2>
+      <h1>Goodbye!</h1>
     </main>
   );
-}
+};
 
 export default Logout;

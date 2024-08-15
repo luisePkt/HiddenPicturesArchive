@@ -1,8 +1,8 @@
-# hiddenBookArchive
+# hidden pictures archive
 
 ## Project Description
 
-**hiddenBookArchive** is a backend-focused project with an evolving frontend. The goal of this project is to allow users to create their own image collections from scanned or photographed images of old magazines or books after registering. Users can build a personalized digital image archive.
+**hidden pictures archive** is a backend-focused project with an evolving frontend. The goal of this project is to allow users to create their own image collections from scanned or photographed images of old magazines or books after registering. Users can build a personalized digital image archive.
 
 The backend is built using Node.js and Express, with data stored in a MongoDB database that I created myself. Images are stored on Cloudinary, with the image paths stored in the database, enabling seamless image storage within the application.
 
@@ -84,12 +84,16 @@ For any questions or support, feel free to contact me through my GitHub profile.
 
 ## Preview
 
-![preview](public/preview/HiddenBooks_prev_1.png)
+![preview](public/preview/hiddenPicturesArchive_prev_1.png)
 
-![preview](public/preview/HiddenBooks_prev_2.png)
+![preview](public/preview/hiddenPicturesArchive_prev_2.png)
 
-![preview](public/preview/HiddenBooks_prev_3.png)
+![preview](public/preview/hiddenPicturesArchive_prev_3.png)
 
-![preview](public/preview/HiddenBooks_prev_4.png)
+![preview](public/preview/hiddenPicturesArchive_prev_4.png)
 
-![preview](public/preview/HiddenBooks_prev_5.png)
+![preview](public/preview/hiddenPicturesArchive_prev_5.png)
+
+![preview](public/preview/hiddenPicturesArchive_prev_6.png)
+
+![preview](public/preview/hiddenPicturesArchive_prev_7.png)
