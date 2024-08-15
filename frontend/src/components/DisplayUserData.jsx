@@ -1,7 +1,7 @@
 import { useUserContext } from "../utils/Provider";
 
 const DisplayUserData = () => {
-  const { userData, profileImage } = useUserContext();
+  const { userData} = useUserContext();
 
   return (
     <main>
@@ -12,8 +12,7 @@ const DisplayUserData = () => {
       <p>{userData.email}</p>
       <p>Profile-Image</p>
       {/* <img src={userData.profileImage.url} alt="" />
-      {userData.profileImage}
-      {profileImage} */}
+      {userData.profileImage}*/}
     </main>
   );
 };

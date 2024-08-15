@@ -7,7 +7,7 @@ const UserProvider = ({ children }) => {
   const [activeUser, setActiveUser] = useState(false);
   const [userData, setUserdata] = useState({});
   const [userToken, setUserToken] = useState(null);
-  const [profileImage, setProfileImage] = useState(undefined);
+  // const [profileImage, setProfileImage] = useState(undefined);
   const port = 3333;
 
   // fetch userdata from backend:
@@ -19,27 +19,18 @@ const UserProvider = ({ children }) => {
 
   console.log("url: ", url);
 
-  // fetch all user-data (one user)
   useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setUserdata(data);
-      })
-      .catch((error) => console.log("error getting userData", error));
+    const fetchCurrentUserData = async () => {
+      try {
+        const res = await fetch(url);
+        const resJson = await res.json();
+        setUserdata(resJson);
+      } catch (error) {
+        console.log("error getting userData", error);
+      }
+    };
+    fetchCurrentUserData();
   }, []);
-  // console.log(userData);
-
-  // fetch img with blob
-  // useEffect(() => {
-  //   fetch(`${url}/profilepic`)
-  //     .then((response) => response.blob())
-  //     .then((blob) => {
-  //       const imageUrl = URL.createObjectURL(blob);
-  //       setProfileImage(imageUrl);
-  //     })
-  //     .catch((error) => console.log("error getting image"));
-  // }, []);
 
   // get userID :
   // useEffect(() => {
@@ -64,9 +55,7 @@ const UserProvider = ({ children }) => {
   // };
 
   return (
-    <UserContext.Provider
-      value={{ activeUser, setActiveUser, userData, profileImage, port }}
-    >
+    <UserContext.Provider value={{ activeUser, setActiveUser, userData, port }}>
       {children}
     </UserContext.Provider>
   );
