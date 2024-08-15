@@ -5,7 +5,6 @@ const DisplayUserData = () => {
 
   return (
     <main>
-      <h2>Display User Data</h2>
       <br />
       <p>Username: </p>
       <p>{userData.username}</p>

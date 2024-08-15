@@ -68,7 +68,7 @@ const Login = () => {
   return (
     <main className={style.main}>
       {activeUser ? (
-        <p>Welcome</p>
+        <h1>Welcome</h1>
       ) : (
         <div>
           <h2>Login</h2>
