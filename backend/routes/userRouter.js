@@ -23,8 +23,9 @@ export const userRouter = express.Router();
 userRouter.route("/").get(getAllUsers).post(createUser);
 userRouter
   .route("/:id")
-  // .get(getSingleUser)
-  .get(tokenAuth, getSingleUser)
+  .get(getSingleUser)
+  // .get(tokenAuth, getSingleUser)
+  // NOTICE: zugriff mit token geht nicht und bild von cloudinary kann nicht angezeigt werden
   .patch(tokenAuth, updateSingleUser)
   .delete(tokenAuth, deleteSingleUser);
 
