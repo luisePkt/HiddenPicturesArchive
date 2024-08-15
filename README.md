@@ -35,33 +35,33 @@ The frontend is currently under development using React.js and Vite.js, with ong
 To set up the project locally, follow these steps:
 
 1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/your-username/hiddenBookArchive.git
-   ```
+    ```bash
+    git clone https://github.com/your-username/hiddenBookArchive.git
+    ```
 
 2. Navigate to the project directory:
-
-   ```bash
-   cd hiddenBookArchive
-   ```
+    ```bash
+    cd hiddenBookArchive
+    ```
 
 3. Install dependencies:
-
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 4. Configure environment variables:
-
-   - Create a `.env` file in the `backend` directory.
-   - Create a `.env` file in the `frontend` directory.
-   - Add your environment variables (e.g., database connection string, Cloudinary API keys) to each file as needed.
+   - In both the `backend` and `frontend` directories, you will find `.env.example` files.
+   - Copy the `.env.example` file to `.env` in each directory:
+     ```bash
+     cp backend/.env.example backend/.env
+     cp frontend/.env.example frontend/.env
+     ```
+   - Open each `.env` file and add the required environment variables (e.g., database connection string, Cloudinary API keys).
 
 5. Start the backend and frontend servers:
-   ```bash
-   npm run dev
-   ```
+    ```bash
+    npm run dev
+    ```
 
 ## Usage
 
