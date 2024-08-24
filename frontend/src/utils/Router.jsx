@@ -6,12 +6,14 @@ import Login from "../pages/Login";
 import Logout from "../pages/Logout";
 import Userdata from "../pages/Userdata";
 import UserProvider from "./Provider";
+import Error from "../pages/ErrorPage";
 
 const Router = () => {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Layout />,
+      errorElement: <Error />,
       children: [
         {
           path: "/",
