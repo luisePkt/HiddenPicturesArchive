@@ -14,21 +14,42 @@ export const tokenAuth = async (req, res, next) => {
     if (!token) {
       return res.sendStatus(401);
     }
+
+    if (!accessTokenSecret) {
+      return res.sendStatus(500);
+    }
     // validate token
-    jwt.verify(token, accessTokenSecret, async (error, decoded) => {
-      // decoded -> object with userinfo
-      if (error) {
-        return res.sendStatus(403);
+    const verification = jwt.verify(
+      token,
+      accessTokenSecret,
+      async (error, payload) => {
+        // payload -> object with userinfo
+        if (error) {
+          return res.sendStatus(403);
+        } else {
+          return payload;
+        }
       }
-      // find user in db with username
-      const user = await User.findOne({ username: decoded.username });
-      if (!user) {
-        return res.sendStatus(404);
-      }
-      // zuweisung wichtig, um z.B. später zu prüfen, ob user für best. Bereiche berechtigt ist
-      req.user = user;
-      next();
-    });
+    );
+
+    if (!verification) {
+      return res.status(400).json({ error: "verifivation failed" });
+    }
+
+    // payload wird zu req.user hinzugefügt
+    req.user = verification;
+    next();
+
+    // find user in db with username
+    // const user = await User.findOne({ username: payload.username });
+    // if (!user) {
+    //   return res.sendStatus(404);
+    // }
+    // zuweisung wichtig, um z.B. später zu prüfen, ob user für best. Bereiche berechtigt ist
+    // req.user = user;
+    //     next();
+    //   }
+    // );
   } catch (error) {
     next(error);
   }
