@@ -23,12 +23,13 @@ const Login = () => {
 
   // Aktualisierung loginData:
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setError(undefined);
-    setLoginData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setLoginData({ ...userData, [e.target.name]: e.target.value });
+    // const { name, value } = e.target;
+    // setError(undefined);
+    // setLoginData((prevState) => ({
+    //   ...prevState,
+    //   [name]: value,
+    // }));
   };
 
   // LOGIN:
